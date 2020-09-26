@@ -22,7 +22,6 @@ def load_data(file):
     Y = data[:, -1:].astype(float)
     # TODO modify X to discard columns not relevant in predicting the success of the song.
     X = np.concatenate((X[:, :1], X[:, 5:]), axis = 1)
-    print(X.shape)
     # END TODO
     return X, Y
 

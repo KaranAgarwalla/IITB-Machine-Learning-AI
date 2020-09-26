@@ -49,7 +49,9 @@ class LogisticRegression:
         :return: softmax for given X and current weights
         """
         # TODO: Compute Softmax
-
+        Z = np.exp(X @ self.weights)
+        Z /= np.sum(Z, axis = 1, keepdims = True)
+        return Z
         # END TODO
 
     def predict(self, X):
@@ -58,18 +60,20 @@ class LogisticRegression:
         :return: numpy array of shape (N, 1) corresponding to predicted labels
         """
         # TODO: Return a (N, 1) numpy array of predictions.
-
+        return np.argmax(self.softmax(X), axis = 1)
         # END TODO
 
     def train(self, X, Y, lr=0.1, max_iter=500):
         Y = one_hot_encode(Y, np.unique(Y))
         for i in range(max_iter):
             # TODO: Update the weights using a single step of gradient descent. You are not allowed to use loops here.
-
+            gradient = - X.T @ (Y - self.softmax(X))/X.shape[0]
+            self.weights = self.weights - lr*gradient 
             # END TODO
 
             # TODO: Stop the algorithm if the norm of the gradient falls below 1e-4
-
+            if np.linalg.norm(gradient) < 1e-4:
+                break
             # End TODO
 
     def eval(self, X, Y):

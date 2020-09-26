@@ -2,7 +2,7 @@ import numpy as np
 import perceptron
 from binary_logistic_regression import *
 from utils import *
-# from multiclass_logistic_regression import *
+from multiclass_logistic_regression import *
 
 np.random.seed(335)
 
@@ -72,6 +72,8 @@ def grade2():
 		f_test = lr.f1_score(a, p)
 
 		try:
+			print(acc)
+			print(f1)
 			assert abs(f_test - 2/3) < 1e-3
 			assert f1 >= 0.25
 			marks += 1.5
@@ -88,7 +90,6 @@ def grade3():
 
 	print("=" * 20 + "Grading Problem 2.2(d)" + "=" * 20)
 	marks = 0.0
-	return marks
 	X_train, Y_train, X_test, Y_test = get_data("D1")
 
 	C = max(np.max(Y_train), np.max(Y_test)) + 1
@@ -97,6 +98,7 @@ def grade3():
 	lr = LogisticRegression(C, D)
 	lr.train(X_train, Y_train)
 	acc = lr.eval(X_test, Y_test)
+	print(acc)
 	try:
 		assert acc > 0.78
 		marks += 3

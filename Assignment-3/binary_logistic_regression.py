@@ -16,17 +16,19 @@ class BinaryLogisticRegression:
         X - numpy array of shape (N, D)
         """
         # TODO: Return a (N, 1) numpy array of predictions.
-
+        return 1/(1+np.exp(-X @ self.weights)) > 0.5
         # END TODO
 
     def train(self, X, Y, lr=0.5, max_iter=10000):
         for _ in range(max_iter):
             # TODO: Update the weights using a single step of gradient descent. You are not allowed to use loops here.
-
+            gradient = - X.T @ (Y - (1/(1+np.exp(-X @ self.weights))))/X.shape[0]
+            self.weights = self.weights - lr*gradient
             # END TODO
 
             # TODO: Stop the algorithm if the norm of the gradient falls below 1e-4
-
+            if np.linalg.norm(gradient) < 1e-4:
+                break
             # End TODO
 
     def accuracy(self, preds, Y):
@@ -47,6 +49,8 @@ class BinaryLogisticRegression:
         FP = np.sum(preds[Y == 0] != Y[Y == 0])
         FN = np.sum(preds[Y == 1] != Y[Y == 1])
 
+        if TP + FP == 0:
+            return 0
         recall = TP/(TP + FN)
         precision = TP/(TP + FP)
         F1 = (2 * recall * precision)/(recall + precision)
