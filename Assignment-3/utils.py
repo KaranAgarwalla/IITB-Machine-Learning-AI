@@ -21,7 +21,8 @@ def load_data(file):
     X = data[:, :-1]
     Y = data[:, -1:].astype(float)
     # TODO modify X to discard columns not relevant in predicting the success of the song.
-
+    X = np.concatenate((X[:, :1], X[:, 5:]), axis = 1)
+    print(X.shape)
     # END TODO
     return X, Y
 
@@ -42,7 +43,10 @@ def split_data(X, Y):
     '''
 
     ## TODO split the songs. Test data should contain 2010 songs and train data should contain all other songs.
-
+    X_test  = X[:373, :]
+    Y_test  = Y[:373, :]
+    X_train = X[373:, :]
+    Y_train = Y[373:, :]
     ## END TODO
 
     return X_train, Y_train, X_test, Y_test

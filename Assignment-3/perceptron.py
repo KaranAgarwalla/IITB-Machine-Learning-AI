@@ -15,12 +15,23 @@ def get_features(x):
 	'''
 	Input:
 	x - numpy array of shape (2500, )
-
+	
 	Output:
 	features - numpy array of shape (D, ) with D <= 5
 	'''
 	### TODO
-
+	# The features 1 to 4 are k neighbour classifiers and are normalised
+	# The 0th feature is bias 1
+	features = np.zeros(5,)
+	x = x.reshape(50, 50)
+	for i in range(1, 49):
+		for j in range(1, 49):
+			features[int(x[i-1, j]+x[i+1, j]+x[i, j-1]+x[i, j+1])] += 1
+	stdarr  = np.array([150, 16, 19, 15, 146])
+	meanarr = np.array([1740, 55, 66, 47, 394])
+	features = (features - meanarr)/stdarr
+	features[0] = 1
+	return features
 	### END TODO
 
 class Perceptron():
@@ -37,14 +48,17 @@ class Perceptron():
 		x - numpy array of shape (D,)
 		'''
 		### TODO: Return predicted class for x
-
+		return np.argmax(self.weights@x)
 		### END TODO
 
-	def train(self, X, Y, max_iter=10):
+	def train(self, X, Y, max_iter=20):
 		for iter in range(max_iter):
 			for i in range(X.shape[0]):
 				### TODO: Update weights
-
+				y_pred = self.pred(X[i])
+				if y_pred != Y[i]:
+					self.weights[Y[i]] += X[i]
+					self.weights[y_pred] -= X[i]
 				### END TODO
 			# print(f'Train Accuracy at iter {iter} = {self.eval(X, Y)}')
 

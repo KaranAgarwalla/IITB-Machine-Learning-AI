@@ -43,7 +43,14 @@ class BinaryLogisticRegression:
         Y - numpy array of shape (N, 1) corresponding to true labels
         """
         # TODO: calculate F1 score for predictions preds and true labels Y
+        TP = np.sum(preds[Y == 1] == Y[Y == 1])
+        FP = np.sum(preds[Y == 0] != Y[Y == 0])
+        FN = np.sum(preds[Y == 1] != Y[Y == 1])
 
+        recall = TP/(TP + FN)
+        precision = TP/(TP + FP)
+        F1 = (2 * recall * precision)/(recall + precision)
+        return F1
         # End TODO
 
 
