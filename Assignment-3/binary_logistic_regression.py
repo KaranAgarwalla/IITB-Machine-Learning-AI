@@ -49,7 +49,7 @@ class BinaryLogisticRegression:
         FP = np.sum(preds[Y == 0] != Y[Y == 0])
         FN = np.sum(preds[Y == 1] != Y[Y == 1])
 
-        if TP + FP == 0:
+        if TP + FP == 0 and FN != 0:
             return 0
         recall = TP/(TP + FN)
         precision = TP/(TP + FP)

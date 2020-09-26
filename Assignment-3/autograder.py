@@ -72,8 +72,6 @@ def grade2():
 		f_test = lr.f1_score(a, p)
 
 		try:
-			print(acc)
-			print(f1)
 			assert abs(f_test - 2/3) < 1e-3
 			assert f1 >= 0.25
 			marks += 1.5
@@ -98,7 +96,6 @@ def grade3():
 	lr = LogisticRegression(C, D)
 	lr.train(X_train, Y_train)
 	acc = lr.eval(X_test, Y_test)
-	print(acc)
 	try:
 		assert acc > 0.78
 		marks += 3
