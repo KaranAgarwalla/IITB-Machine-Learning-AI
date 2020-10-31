@@ -66,9 +66,9 @@ class KernelRidgeRegression(object):
             X - N x d matrix
             y - N x 1 matrix
         '''
-        # TODO - compute value of alpha and save it to self.alpha
         self.train_X = X
         self.train_y = y
+        # TODO - compute value of alpha and save it to self.alpha
         self.alpha = np.linalg.inv(self.kernel(X, X)+self.lamda*np.identity(X.shape[0]))@y
         # END TODO
     

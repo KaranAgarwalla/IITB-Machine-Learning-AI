@@ -51,7 +51,7 @@ def k_fold_cv(X,y,k=10,sigma=1.0):
     Returns:
         error -- (sum of total mistakes for each fold)/(k)
     '''
-    # TODO
+    # TODO 
     error = 0 
     len = int(X.shape[0]/k)
     for i in range(k):
@@ -73,7 +73,9 @@ if __name__ == '__main__':
 
     clf = KernelLogistic(gaussian_kernel)
     clf.fit(X1, Y1)
+
     y_predict = clf.predict(data[900:,:2]) > 0.5
+
     correct = np.sum(y_predict == data[900:,2])
     print("%d out of %d predictions correct" % (correct, len(y_predict)))
     if correct > 92:

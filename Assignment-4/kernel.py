@@ -44,6 +44,6 @@ def my_kernel(X,Y,sigma):
 		K - numpy array of size n x m
 	''' 
 	# TODO
-	# NOTE THAT YOU CANNOT USE FOR LOOPS HERE
+	# NOTE THAT YOU CANNOT USE FOR LOOPS HERE 
 	return (1+X@Y.T)**4 
 	# END TODO

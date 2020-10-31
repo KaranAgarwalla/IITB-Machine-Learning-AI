@@ -9,11 +9,8 @@ def grade3():
         op = np.array([[0.5, 0.5], [2.0, 2.0], [3.5, 3.5]])
 
         kmeans = KMeans(D=2, n_clusters=3)
-
         kmeans.cluster_centers = centers
-
         it = kmeans.train(data, 1)
-
         if np.allclose(kmeans.cluster_centers, op) and it==0:
             marks += 0.5
 
