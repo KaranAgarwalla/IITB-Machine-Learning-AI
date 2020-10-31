@@ -18,25 +18,37 @@ class KMeans():
 
 	def pred(self, x):
 		### TODO: Given a sample x, return id of closest cluster center
-		return np.argmin(np.linalg.norm(self.cluster_centers-x), axis = 1)
+		return np.argmin(np.linalg.norm(self.cluster_centers-x, axis = 1))
 		### END TODO
 
 	def train(self, data, max_iter=10000, epsilon=1e-4):
 		for it in range(max_iter):
 			### TODO
 			### Declare and initialize required variables
-			pi = np.zeros(data.shape[0]) # cluster for ith variable
+			pij  	= np.zeros((self.n_clusters, data.shape[0])) # cluster for ith variable
 			
 			### Update labels for each point
-			di = 
+			dij 	= np.sum(data**2, axis = 1, keepdims = True) + \
+						np.sum(self.cluster_centers**2, axis = 1, keepdims = True).T	- \
+						2*data@self.cluster_centers.T
+
+			label  	= np.argmin(dij, axis = 1)
+			pij[label, np.arange(data.shape[0])] = 1
 
 			### Update cluster centers
 			### Note: If some cluster is empty, do not update the cluster center
-
+			cluster_centers_updated = self.cluster_centers.copy()
+			cluster_cnts = np.sum(pij, axis = 1)
+			for i in range(self.n_clusters):
+				if cluster_cnts[i] != 0:
+					cluster_centers_updated[i] = np.sum(pij[i:i+1, :].T*data, axis = 0)/cluster_cnts[i]
 
 			### Check for convergence
 			### Stop if distance between each of the old and new cluster centers is less than epsilon
+			if np.max(np.linalg.norm(cluster_centers_updated-self.cluster_centers, axis = 1)) < epsilon:
+				break
 
+			self.cluster_centers = cluster_centers_updated.copy()
 			### END TODO
 		return it
 

@@ -45,6 +45,5 @@ def my_kernel(X,Y,sigma):
 	''' 
 	# TODO
 	# NOTE THAT YOU CANNOT USE FOR LOOPS HERE
-	# return (1+X@Y.T)**4 
-	return np.power(1+X@Y.T, 4) + np.power(1+X@Y.T, 2)
+	return (1+X@Y.T)**4 
 	# END TODO
